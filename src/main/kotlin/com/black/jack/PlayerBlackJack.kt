@@ -56,7 +56,7 @@ abstract class PlayerBlackJack(private val name: String) {
 
         println("$name is taking a card...")
         Thread.sleep(500)
-        println("""it's "$nameOfType of $nameOfSuit" its value is ${typeOfCard.cost}""")
+        println("""it's "$redColor$nameOfType of $nameOfSuit$resetColor" its value is $greenColor${typeOfCard.cost}$resetColor""")
 
         if (typeOfCard == Rank.ACE) {
             numberOfAces++
