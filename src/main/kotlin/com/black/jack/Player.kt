@@ -17,11 +17,12 @@ class Player(name: String) : PlayerBlackJack(name) {
     }
 
     fun question() {
-        print("Your cards are \"$redColor${cardsInHand.joinToString(", ")}$resetColor\" its cost is $costOfHand. Another card? Yes/No: ")
+        println("Another card? Yes/No: ")
     }
 
     fun oneMoreCard() {
         takeCard()
+        information()
         question()
     }
 }

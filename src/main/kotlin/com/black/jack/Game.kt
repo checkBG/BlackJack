@@ -6,12 +6,18 @@ fun main() {
 
     val player = Player(playerName)
 
+    player.information()
     player.question()
-    while (readln().lowercase() in listOf(
-            "y", "yes", "да", "д"
-        ) && dealer.costOfHand <= 21 && player.costOfHand <= 21
+    while (dealer.costOfHand <= 21 &&
+        player.costOfHand <= 21 &&
+        dealer.costOfHand >= player.costOfHand
     ) {
-        player.oneMoreCard()
+        if (readln().lowercase() in listOf(
+                "y", "yes", "да", "д"
+            )
+        ) {
+            player.oneMoreCard()
+        }
     }
 
     println(result(player.costOfHand, dealer.costOfHand))

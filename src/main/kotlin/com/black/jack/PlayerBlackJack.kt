@@ -19,7 +19,7 @@ abstract class PlayerBlackJack(private val name: String) {
 
     fun information(): String {
         return """
-            **$name:
+    **        $name:
             **     the value of $pronoun hand is $greenColor$costOfHand$resetColor,
             **     $pronoun cards are "$redColor${cardsInHand.joinToString(", ")}$resetColor"
         """.trimIndent()
@@ -78,25 +78,32 @@ abstract class PlayerBlackJack(private val name: String) {
 
         while (true) {
             when (costOfHand) {
-                in 0..15 -> takeCard()
+                in 0..11 -> takeCard()
 
-                in 16..17 -> {
-                    when (Random.nextInt(1..10)) {
-                        in 1..2 -> takeCard()
+                in 12..15 -> {
+                    when (Random.nextInt(1..2)) {
+                        1 -> takeCard()
                         else -> return finish
                     }
                 }
 
-                in 18..19 -> {
+                in 16..17 -> {
                     when (Random.nextInt(1..10)) {
                         1 -> takeCard()
                         else -> return finish
                     }
                 }
 
-                20 -> {
+                in 18..19 -> {
                     when (Random.nextInt(1..100)) {
                         in 1..4 -> takeCard()
+                        else -> return finish
+                    }
+                }
+
+                20 -> {
+                    when (Random.nextInt(1..100)) {
+                        in 1..2 -> takeCard()
                         else -> return finish
                     }
                 }
