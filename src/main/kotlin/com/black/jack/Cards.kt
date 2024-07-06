@@ -17,3 +17,7 @@ enum class Rank(val cost: Int) {
     QUEEN(10),
     KING(10)
 }
+
+//class Cards {
+//    val cards: MutableList<>
+//}

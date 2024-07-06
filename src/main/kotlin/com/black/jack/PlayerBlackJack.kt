@@ -35,15 +35,16 @@ abstract class PlayerBlackJack(private val name: String) {
     }
 
     init {
-        Suit.entries.shuffled().forEach { suit ->
-            Rank.entries.shuffled().forEach { rank ->
+        Suit.entries.forEach { suit ->
+            Rank.entries.forEach { rank ->
                 cards += rank to suit
             }
         }
+        cards.shuffled()
     }
 
     fun takeCard() {
-        val tookCard = cards.shuffled().first()
+        val tookCard = cards.first()
 
         val typeOfCard = tookCard.first
         val nameOfType = typeOfCard.name.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
