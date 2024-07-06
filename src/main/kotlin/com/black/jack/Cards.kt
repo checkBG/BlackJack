@@ -18,6 +18,21 @@ enum class Rank(val cost: Int) {
     KING(10)
 }
 
-//class Cards {
-//    val cards: MutableList<>
-//}
+class Cards {
+    private val cards: MutableList<Pair<Rank, Suit>> = mutableListOf()
+
+    init {
+        Suit.entries.forEach { suit ->
+            Rank.entries.forEach { rank ->
+                cards += rank to suit
+            }
+        }
+        cards.shuffle()
+    }
+
+    fun getCard(): Pair<Rank, Suit> {
+        val getCard = cards.first()
+        cards -= getCard
+        return getCard
+    }
+}

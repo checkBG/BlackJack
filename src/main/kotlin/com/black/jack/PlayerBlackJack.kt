@@ -10,7 +10,7 @@ abstract class PlayerBlackJack(private val name: String) {
     protected abstract val cardsInHand: MutableList<String>
     protected abstract var numberOfAces: Int
 
-    private val cards: MutableList<Pair<Rank, Suit>> = mutableListOf()
+    private val cards = Cards()
 
     private val redColor = "\u001b[31m"
     protected val blueColor =
@@ -34,17 +34,8 @@ abstract class PlayerBlackJack(private val name: String) {
         """.trimMargin()
     }
 
-    init {
-        Suit.entries.forEach { suit ->
-            Rank.entries.forEach { rank ->
-                cards += rank to suit
-            }
-        }
-        cards.shuffled()
-    }
-
     fun takeCard() {
-        val tookCard = cards.first()
+        val tookCard = cards.getCard()
 
         val typeOfCard = tookCard.first
         val nameOfType = typeOfCard.name.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
@@ -54,7 +45,6 @@ abstract class PlayerBlackJack(private val name: String) {
 
         costOfHand += typeOfCard.cost
         cardsInHand += "$nameOfType $nameOfSuit"
-        cards -= Pair(typeOfCard, suitOfCard)
 
         println("$name is taking a card...")
         Thread.sleep(500)
