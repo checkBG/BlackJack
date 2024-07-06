@@ -1,6 +1,5 @@
 package com.black.jack
 
-import java.util.*
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -14,16 +13,10 @@ abstract class PlayerBlackJack(initialName: String) {
 
     private val cards = Cards()
 
-    private val redColor = "\u001b[31m"
-    private val blueColor =
-        "\u001B[34m" // это для дальнейших обновлений, когда мы сможем выводить карту цветом, соответствующим её масти
-    private val greenColor = "\u001B[32m"
-    private val resetColor = "\u001b[0m"
-
     fun information(): String {
         return """
     |--$name:
-    |      --the value of $pronoun hand is $greenColor$costOfHand$resetColor,
+    |      --the value of $pronoun hand is ${Color.GREEN.color}$costOfHand${Color.RESET.color},
     |      --$pronoun cards are "${cardsInHand.joinToString("| ")}"
         """.trimMargin()
     }
@@ -31,7 +24,7 @@ abstract class PlayerBlackJack(initialName: String) {
     protected val finish: String by lazy {
         """
             |$name $pronoun finished taking the cards,
-            |the value of $pronoun hand is $greenColor$costOfHand$resetColor,
+            |the value of $pronoun hand is ${Color.GREEN.color}$costOfHand${Color.RESET.color},
             |$pronoun cards are "${cardsInHand.joinToString("| ")}"
         """.trimMargin()
     }
@@ -40,26 +33,24 @@ abstract class PlayerBlackJack(initialName: String) {
         val tookCard = cards.getCard()
 
         val typeOfCard = tookCard.first
-        val nameOfType = typeOfCard.name.lowercase()
-            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+        val nameOfType = typeOfCard.name.lowercase().replaceFirstChar { it.uppercase() }
 
         val suitOfCard = tookCard.second
-        val nameOfSuit = suitOfCard.name.lowercase()
-            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+        val nameOfSuit = suitOfCard.name.lowercase().replaceFirstChar { it.uppercase() }
 
         costOfHand += typeOfCard.cost
         cardsInHand += "${
             if (suitOfCard == Suit.HEARTS || suitOfCard == Suit.DIAMONDS) {
-                redColor
+                Color.RED.color
             } else {
-                blueColor
+                Color.BLUE.color
             }
-        }$nameOfType ${suitOfCard.suit}($nameOfSuit)$resetColor"
+        }$nameOfType ${suitOfCard.suit}($nameOfSuit)${Color.RESET.color}"
 
         println("$name is taking a card...")
         Thread.sleep(500)
-        println("""it's "$redColor$nameOfType of $nameOfSuit$resetColor" its value is $greenColor${typeOfCard.cost}$resetColor""")
-
+//        println("""it's "${Color.RED.color}$nameOfType of $nameOfSuit${Color.RESET.color}" its value is ${Color.GREEN.color}${typeOfCard.cost}${Color.RESET.color}""")
+        println("""it's "${cardsInHand.last()}" its value is ${Color.GREEN.color}${typeOfCard.cost}${Color.RESET.color}""")
         if (typeOfCard == Rank.ACE) {
             numberOfAces++
         }
