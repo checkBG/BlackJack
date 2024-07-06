@@ -7,23 +7,23 @@ fun main() {
     val player = Player(playerName)
 
     while (dealer.costOfHand <= 21 &&
-        player.costOfHand <= 21 &&
+        player.costOfHand < 21 &&
         dealer.costOfHand >= player.costOfHand
     ) {
         player.question()
         if (readln().lowercase() in listOf("y", "yes", "да", "д")) {
-            player.oneMoreCard()
+            player.takeCard()
         } else {
             break
         }
     }
 
-    println(result(player.costOfHand, dealer.costOfHand))
     println(
         """
-        ${player.information()}
-        and
-        ${dealer.information()}
-    """.trimIndent()
+        |${result(player.costOfHand, dealer.costOfHand)}
+        |${player.information()}
+        |
+        |${dealer.information()}
+    """.trimMargin()
     )
 }

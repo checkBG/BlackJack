@@ -20,10 +20,10 @@ abstract class PlayerBlackJack(private val name: String) {
 
     fun information(): String {
         return """
-    **$name:
-            **     the value of $pronoun hand is $greenColor$costOfHand$resetColor,
-            **     $pronoun cards are "$redColor${cardsInHand.joinToString(", ")}$resetColor"
-        """.trimIndent()
+    |--$name:
+    |      --the value of $pronoun hand is $greenColor$costOfHand$resetColor,
+    |      --$pronoun cards are "$redColor${cardsInHand.joinToString(", ")}$resetColor"
+        """.trimMargin()
     }
 
     protected val finish: String by lazy {

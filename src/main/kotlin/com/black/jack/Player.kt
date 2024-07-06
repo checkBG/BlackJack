@@ -20,10 +20,4 @@ class Player(name: String) : PlayerBlackJack(name) {
         println(information())
         println("Another card? Yes/No: ")
     }
-
-    fun oneMoreCard() {
-        takeCard()
-//        println(information())
-        question()
-    }
 }
