@@ -1,5 +1,6 @@
 package com.black.jack
 
+import java.util.*
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -11,11 +12,11 @@ abstract class PlayerBlackJack(private val name: String) {
 
     private val cards: MutableList<Pair<Rank, Suit>> = mutableListOf()
 
-    protected val redColor = "\u001b[31m"
+    private val redColor = "\u001b[31m"
     protected val blueColor =
         "\u001B[34m" // это для дальнейших обновлений, когда мы сможем выводить карту цветом, соответствующим её масти
-    protected val greenColor = "\u001B[32m"
-    protected val resetColor = "\u001b[0m"
+    private val greenColor = "\u001B[32m"
+    private val resetColor = "\u001b[0m"
 
     fun information(): String {
         return """
@@ -45,10 +46,10 @@ abstract class PlayerBlackJack(private val name: String) {
         val tookCard = cards.shuffled().first()
 
         val typeOfCard = tookCard.first
-        val nameOfType = typeOfCard.name.lowercase().capitalize()
+        val nameOfType = typeOfCard.name.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 
         val suitOfCard = tookCard.second
-        val nameOfSuit = suitOfCard.name.lowercase().capitalize()
+        val nameOfSuit = suitOfCard.name.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 
         costOfHand += typeOfCard.cost
         cardsInHand += "$nameOfType $nameOfSuit"

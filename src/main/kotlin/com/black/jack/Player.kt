@@ -17,12 +17,13 @@ class Player(name: String) : PlayerBlackJack(name) {
     }
 
     fun question() {
+        println(information())
         println("Another card? Yes/No: ")
     }
 
     fun oneMoreCard() {
         takeCard()
-        information()
+//        println(information())
         question()
     }
 }

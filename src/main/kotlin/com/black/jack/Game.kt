@@ -10,14 +10,10 @@ fun main() {
     player.question()
     while (dealer.costOfHand <= 21 &&
         player.costOfHand <= 21 &&
-        dealer.costOfHand >= player.costOfHand
+        dealer.costOfHand >= player.costOfHand &&
+        readln().lowercase() in listOf("y", "yes", "да", "д")
     ) {
-        if (readln().lowercase() in listOf(
-                "y", "yes", "да", "д"
-            )
-        ) {
-            player.oneMoreCard()
-        }
+        player.oneMoreCard()
     }
 
     println(result(player.costOfHand, dealer.costOfHand))
