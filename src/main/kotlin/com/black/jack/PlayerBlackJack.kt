@@ -4,7 +4,9 @@ import java.util.*
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-abstract class PlayerBlackJack(private val name: String) {
+abstract class PlayerBlackJack(initialName: String) {
+    private val name: String = initialName
+        get() = field.replaceFirstChar { it.uppercase() }
     protected abstract val pronoun: String
     abstract var costOfHand: Int
     protected abstract val cardsInHand: MutableList<String>
@@ -13,7 +15,7 @@ abstract class PlayerBlackJack(private val name: String) {
     private val cards = Cards()
 
     private val redColor = "\u001b[31m"
-    protected val blueColor =
+    private val blueColor =
         "\u001B[34m" // это для дальнейших обновлений, когда мы сможем выводить карту цветом, соответствующим её масти
     private val greenColor = "\u001B[32m"
     private val resetColor = "\u001b[0m"
@@ -22,7 +24,7 @@ abstract class PlayerBlackJack(private val name: String) {
         return """
     |--$name:
     |      --the value of $pronoun hand is $greenColor$costOfHand$resetColor,
-    |      --$pronoun cards are "$redColor${cardsInHand.joinToString(", ")}$resetColor"
+    |      --$pronoun cards are "${cardsInHand.joinToString("| ")}"
         """.trimMargin()
     }
 
@@ -30,7 +32,7 @@ abstract class PlayerBlackJack(private val name: String) {
         """
             |$name $pronoun finished taking the cards,
             |the value of $pronoun hand is $greenColor$costOfHand$resetColor,
-            |$pronoun cards are "$redColor${cardsInHand.joinToString(", ")}$resetColor"
+            |$pronoun cards are "${cardsInHand.joinToString("| ")}"
         """.trimMargin()
     }
 
@@ -38,13 +40,21 @@ abstract class PlayerBlackJack(private val name: String) {
         val tookCard = cards.getCard()
 
         val typeOfCard = tookCard.first
-        val nameOfType = typeOfCard.name.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+        val nameOfType = typeOfCard.name.lowercase()
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 
         val suitOfCard = tookCard.second
-        val nameOfSuit = suitOfCard.name.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+        val nameOfSuit = suitOfCard.name.lowercase()
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 
         costOfHand += typeOfCard.cost
-        cardsInHand += "$nameOfType $nameOfSuit"
+        cardsInHand += "${
+            if (suitOfCard == Suit.HEARTS || suitOfCard == Suit.DIAMONDS) {
+                redColor
+            } else {
+                blueColor
+            }
+        }$nameOfType ${suitOfCard.suit}($nameOfSuit)$resetColor"
 
         println("$name is taking a card...")
         Thread.sleep(500)

@@ -1,6 +1,11 @@
 package com.black.jack
 
-enum class Suit { CLUBS, DIAMONDS, HEARTS, SPADES }
+enum class Suit(val suit: String) {
+    CLUBS("♣️"),
+    DIAMONDS("♦\uFE0F"),
+    HEARTS("♥️"),
+    SPADES("♠\uFE0F")
+}
 
 enum class Rank(val cost: Int) {
     ACE(11),
