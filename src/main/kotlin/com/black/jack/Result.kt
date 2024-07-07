@@ -6,7 +6,10 @@ fun result(player: Int, dealer: Int): String {
 
         (dealer > 21) -> "Both lost!"
 
-        (player < dealer) || (player > 21) -> "You ${"lost".changeColor(color = Color.BRIGHT_WHITE)}! Oops, it happens"
+        (player < dealer) || (player > 21) -> {
+            val smile = listOf("(｡•́︿•̀｡)", "(っ◞‸◟c)", "ಥ_ಥ", "(｡•́︿•̀｡)").random()
+            "You ${"lost".changeColor(color = Color.BRIGHT_WHITE)}! ${smile.changeColor(color = Color.BRIGHT_WHITE)} Oops, it happens"
+        }
 
         else -> "A ${"draw".changeColor(color = Color.BRIGHT_BLUE)}, no one won (But you can definitely do it!)"
     }

@@ -24,7 +24,7 @@ enum class Rank(val symbol: Char, val cost: Int) {
 }
 
 class Deck {
-    private val deck: MutableList<Pair<Rank, Suit>> = mutableListOf()
+    private val deck: MutableList<Pair<Rank, Suit>>  = mutableListOf()
 
     init {
         Suit.entries.forEach { suit ->
@@ -36,7 +36,7 @@ class Deck {
     }
 
     fun getCard(): Pair<Rank, Suit> {
-        val getCard = deck.first()
+        val getCard = deck.random()
         deck -= getCard
         return getCard
     }
