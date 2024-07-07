@@ -11,7 +11,7 @@ fun main() {
         dealer.costOfHand >= player.costOfHand
     ) {
         player.question()
-        if (readln().lowercase() in listOf("y", "yes", "да", "д")) {
+        if (readln().lowercase() in listOf("y", "yes", "да", "д", "yep", "yeah")) {
             player.takeCard()
         } else {
             break
