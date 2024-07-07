@@ -40,7 +40,7 @@ abstract class PlayerBlackJack(initialName: String) {
 
         costOfHand += typeOfCard.cost
 
-        cardsInHand += "$nameOfType ${suitOfCard.suit}($nameOfSuit)".changeColor(
+        cardsInHand += "${typeOfCard.symbol}${suitOfCard.suit} ($nameOfType of $nameOfSuit)".changeColor(
             color = if (suitOfCard == Suit.HEARTS || suitOfCard == Suit.DIAMONDS) {
                 Color.RED
             } else {
