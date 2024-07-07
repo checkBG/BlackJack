@@ -11,7 +11,7 @@ abstract class PlayerBlackJack(initialName: String) {
     protected abstract val cardsInHand: MutableList<String>
     protected abstract var numberOfAces: Int
 
-    private val cards = Cards()
+    private val cards = Deck()
 
     fun information(): String {
         return """
