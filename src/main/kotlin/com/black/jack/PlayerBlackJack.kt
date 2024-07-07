@@ -5,7 +5,7 @@ import kotlin.random.nextInt
 
 abstract class PlayerBlackJack(initialName: String) {
     private val name: String = initialName
-        get() = field.replaceFirstChar { it.uppercase() }
+        get() = field.replaceFirstChar { it.uppercase() }.changeColor(color = Color.YELLOW)
     protected abstract val pronoun: String
     abstract var costOfHand: Int
     protected abstract val cardsInHand: MutableList<String>

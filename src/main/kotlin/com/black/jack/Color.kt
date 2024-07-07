@@ -8,5 +8,6 @@ enum class Color(val color: String) {
     GREEN("\u001B[32m"),
     WHITE("\u001B[47m"),
     BRIGHT_WHITE("\u001B[97m"),
+    YELLOW("\u001B[33m"),
     RESET("\u001b[0m")
 }
