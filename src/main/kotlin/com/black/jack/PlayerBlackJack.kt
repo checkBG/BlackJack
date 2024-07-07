@@ -9,14 +9,14 @@ abstract class PlayerBlackJack(initialName: String) {
     protected abstract val pronoun: String
     abstract var costOfHand: Int
     protected abstract val cardsInHand: MutableList<String>
-    protected abstract var numberOfAces: Int
+    private var numberOfAces: Int = 0
 
     private val cards = Deck()
 
     fun information(): String {
         return """
     |--$name:
-    |      --the value of $pronoun hand is ${Color.GREEN.color}$costOfHand${Color.RESET.color},
+    |      --the value of $pronoun hand is ${costOfHand.changeColor(color = Color.GREEN)},
     |      --$pronoun cards are "${cardsInHand.joinToString("| ")}"
         """.trimMargin()
     }
@@ -24,7 +24,7 @@ abstract class PlayerBlackJack(initialName: String) {
     protected val finish: String by lazy {
         """
             |$name $pronoun finished taking the cards,
-            |the value of $pronoun hand is ${Color.GREEN.color}$costOfHand${Color.RESET.color},
+            |the value of $pronoun hand is ${costOfHand.changeColor(color = Color.GREEN)},
             |$pronoun cards are "${cardsInHand.joinToString("| ")}"
         """.trimMargin()
     }
@@ -39,18 +39,19 @@ abstract class PlayerBlackJack(initialName: String) {
         val nameOfSuit = suitOfCard.name.lowercase().replaceFirstChar { it.uppercase() }
 
         costOfHand += typeOfCard.cost
-        cardsInHand += "${
-            if (suitOfCard == Suit.HEARTS || suitOfCard == Suit.DIAMONDS) {
-                Color.RED.color
+
+        cardsInHand += "$nameOfType ${suitOfCard.suit}($nameOfSuit)".changeColor(
+            color = if (suitOfCard == Suit.HEARTS || suitOfCard == Suit.DIAMONDS) {
+                Color.RED
             } else {
-                Color.BLUE.color
+                Color.BLUE
             }
-        }$nameOfType ${suitOfCard.suit}($nameOfSuit)${Color.RESET.color}"
+        )
 
         println("$name is taking a card...")
         Thread.sleep(500)
-//        println("""it's "${Color.RED.color}$nameOfType of $nameOfSuit${Color.RESET.color}" its value is ${Color.GREEN.color}${typeOfCard.cost}${Color.RESET.color}""")
-        println("""it's "${cardsInHand.last()}" its value is ${Color.GREEN.color}${typeOfCard.cost}${Color.RESET.color}""")
+
+        println("""it's "${cardsInHand.last()}" its value is ${typeOfCard.cost.changeColor(color = Color.GREEN)}""")
         if (typeOfCard == Rank.ACE) {
             numberOfAces++
         }

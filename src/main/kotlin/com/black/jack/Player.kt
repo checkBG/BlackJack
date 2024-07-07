@@ -4,7 +4,6 @@ class Player(name: String) : PlayerBlackJack(name) {
     override val pronoun: String = "your"
     override var costOfHand: Int = 0
     override val cardsInHand: MutableList<String> = mutableListOf()
-    override var numberOfAces: Int = 0
     override fun artificialIntelligence(): String {
         repeat(2) {
             takeCard()
