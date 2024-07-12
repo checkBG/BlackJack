@@ -1,7 +1,7 @@
-package com.black.jack.model
+package com.blackjack.model
 
-import com.black.jack.Rank
-import com.black.jack.Suit
+import com.blackjack.Rank
+import com.blackjack.Suit
 
 data class Hand(
     var costOfHand: Int = 0,

@@ -1,9 +1,9 @@
-package com.black.jack
+package com.blackjack
 
-import com.black.jack.players.Dealer
-import com.black.jack.players.User
-import com.black.jack.utils.Color
-import com.black.jack.utils.changeColor
+import com.blackjack.players.Dealer
+import com.blackjack.players.User
+import com.blackjack.utils.Color
+import com.blackjack.utils.changeColor
 
 class Game(private val user: User, private val dealer: Dealer) {
     companion object {

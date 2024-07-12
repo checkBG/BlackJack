@@ -1,9 +1,9 @@
-package com.black.jack.players
+package com.blackjack.players
 
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-class Dealer(nameDealer: String = "The dealer") : PlayerBlackJack(nameDealer) {
+class Dealer(nameDealer: String = "The dealer") : PlayerBlackjack(nameDealer) {
     override val pronoun: String = "his"
 
     fun artificialIntelligence(): String {

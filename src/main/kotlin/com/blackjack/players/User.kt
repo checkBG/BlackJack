@@ -1,6 +1,6 @@
-package com.black.jack.players
+package com.blackjack.players
 
-class User(name: String) : PlayerBlackJack(name) {
+class User(name: String) : PlayerBlackjack(name) {
     override val pronoun: String = "your"
 
     init {

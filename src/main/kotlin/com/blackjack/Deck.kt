@@ -1,8 +1,4 @@
-package com.black.jack
-
-import com.black.jack.players.PlayerBlackJack
-import com.black.jack.utils.Color
-import com.black.jack.utils.changeColor
+package com.blackjack
 
 enum class Suit(val suit: String) {
     CLUBS("♣️"),

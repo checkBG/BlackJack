@@ -1,12 +1,14 @@
-package com.black.jack.players
+package com.blackjack.players
 
-import com.black.jack.*
-import com.black.jack.model.Hand
-import com.black.jack.model.ReceivedCard
-import com.black.jack.utils.Color
-import com.black.jack.utils.changeColor
+import com.blackjack.Game
+import com.blackjack.Rank
+import com.blackjack.Suit
+import com.blackjack.model.Hand
+import com.blackjack.model.ReceivedCard
+import com.blackjack.utils.Color
+import com.blackjack.utils.changeColor
 
-abstract class PlayerBlackJack(initialName: String) {
+abstract class PlayerBlackjack(initialName: String) {
     val name: String = initialName
         get() = field.replaceFirstChar { it.uppercase() }.changeColor(color = Color.YELLOW)
 
