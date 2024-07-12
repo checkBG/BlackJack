@@ -6,9 +6,4 @@ class User(name: String) : PlayerBlackJack(name) {
     init {
         println(defaultDistribution())
     }
-
-    fun question() {
-//        println(information())
-        println("Another card? Yes/No: ")
-    }
 }

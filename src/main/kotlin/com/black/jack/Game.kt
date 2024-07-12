@@ -1,8 +1,8 @@
 package com.black.jack
 
 import com.black.jack.players.Dealer
-import com.black.jack.players.User
 import com.black.jack.players.PlayerBlackJack
+import com.black.jack.players.User
 
 fun main() {
     val playerName = PlayerBlackJack.enterName()
@@ -10,13 +10,14 @@ fun main() {
 
     val user = User(playerName)
 
-    while (dealer.hand.costOfHand <= 21 &&
-        user.hand.costOfHand < 21 &&
-        dealer.hand.costOfHand >= user.hand.costOfHand
-    ) {
-        user.question()
+    while (user.hand.costOfHand < 21) {
+        println("Another card? Yes/No: ")
+
         if (readln().lowercase() in listOf("y", "yes", "да", "д", "yep", "yeah")) {
             user.takeCard()
+        } else if (user.hand.costOfHand < 21) {
+            println(dealer.artificialIntelligence())
+            break
         } else {
             break
         }
@@ -26,8 +27,15 @@ fun main() {
         """
         |${Game.result(user.hand.costOfHand, dealer.hand.costOfHand)}
         |${user.information()}
-        |
-        |${dealer.information()}
-    """.trimMargin()
+        """.trimMargin()
     )
+
+    if (dealer.hand.costOfHand > 0) {
+        println(
+            """
+            |
+            |${dealer.information()}
+            """.trimMargin()
+        )
+    }
 }

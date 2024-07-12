@@ -6,12 +6,9 @@ import kotlin.random.nextInt
 class Dealer(nameDealer: String = "The dealer") : PlayerBlackJack(nameDealer) {
     override val pronoun: String = "his"
 
-    init {
-        println(artificialIntelligence())
-    }
-
-    private fun artificialIntelligence(): String {
+    fun artificialIntelligence(): String {
         println("$name starts taking cards")
+        defaultDistribution()
 
         while (true) {
             when (hand.costOfHand) {

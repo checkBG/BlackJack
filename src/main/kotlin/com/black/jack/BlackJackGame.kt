@@ -11,6 +11,8 @@ class Game() {
             return when {
                 (((player > dealer) && (player <= 21)) || (dealer > 21)) -> "You ${"won".changeColor(color = Color.BRIGHT_RED)}! Congratulations!!!"
 
+                (dealer == 0) -> "You lost, you had too much, the dealer didn't even take the cards"
+
                 (player < dealer) || (player > 21) -> {
                     val smile = listOf("(｡•́︿•̀｡)", "(っ◞‸◟c)", "ಥ_ಥ").random()
                     "You ${"lost".changeColor(color = Color.BRIGHT_WHITE)}! ${smile.changeColor(color = Color.BRIGHT_WHITE)} Oops, it happens"
