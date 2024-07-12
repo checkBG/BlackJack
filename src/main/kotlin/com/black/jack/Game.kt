@@ -1,22 +1,22 @@
 package com.black.jack
 
 import com.black.jack.players.Dealer
-import com.black.jack.players.Player
+import com.black.jack.players.User
 import com.black.jack.players.PlayerBlackJack
 
 fun main() {
     val playerName = PlayerBlackJack.enterName()
     val dealer = Dealer()
 
-    val player = Player(playerName)
+    val user = User(playerName)
 
-    while (dealer.costOfHand <= 21 &&
-        player.costOfHand < 21 &&
-        dealer.costOfHand >= player.costOfHand
+    while (dealer.hand.costOfHand <= 21 &&
+        user.hand.costOfHand < 21 &&
+        dealer.hand.costOfHand >= user.hand.costOfHand
     ) {
-        player.question()
+        user.question()
         if (readln().lowercase() in listOf("y", "yes", "да", "д", "yep", "yeah")) {
-            player.takeCard()
+            user.takeCard()
         } else {
             break
         }
@@ -24,8 +24,8 @@ fun main() {
 
     println(
         """
-        |${result(player.costOfHand, dealer.costOfHand)}
-        |${player.information()}
+        |${Game.result(user.hand.costOfHand, dealer.hand.costOfHand)}
+        |${user.information()}
         |
         |${dealer.information()}
     """.trimMargin()

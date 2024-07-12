@@ -1,115 +1,70 @@
 package com.black.jack.players
 
 import com.black.jack.*
+import com.black.jack.model.Hand
+import com.black.jack.model.ReceivedCard
 import com.black.jack.utils.Color
 import com.black.jack.utils.changeColor
-import kotlin.random.Random
-import kotlin.random.nextInt
 
 abstract class PlayerBlackJack(initialName: String) {
-    private val name: String = initialName
+    val name: String = initialName
         get() = field.replaceFirstChar { it.uppercase() }.changeColor(color = Color.YELLOW)
-    protected abstract val pronoun: String
-    abstract var costOfHand: Int
-    protected abstract val cardsInHand: MutableList<String>
-    private var numberOfAces: Int = 0
 
-    private val cards = Deck()
+    val hand = Hand()
 
-    fun information(): String {
-        return """
-    |--$name:
-    |      --the value of $pronoun hand is ${costOfHand.changeColor(color = Color.GREEN)},
-    |      --$pronoun cards are "${cardsInHand.joinToString("| ")}"
-        """.trimMargin()
-    }
-
-    protected val finish: String by lazy {
-        """
-            |$name $pronoun finished taking the cards,
-            |the value of $pronoun hand is ${costOfHand.changeColor(color = Color.GREEN)},
-            |$pronoun cards are "${cardsInHand.joinToString("| ")}"
-        """.trimMargin()
-    }
+    abstract val pronoun: String
 
     fun takeCard() {
-        val tookCard = cards.getCard()
+        val tookCard = Game.deck.getCard()
 
-        val typeOfCard = tookCard.first
-        val nameOfType = typeOfCard.name.lowercase().replaceFirstChar { it.uppercase() }
+        val receivedCard = ReceivedCard(
+            rankOfCard = tookCard.first,
+            suitOfCard = tookCard.second
+        )
 
-        val suitOfCard = tookCard.second
-        val nameOfSuit = suitOfCard.name.lowercase().replaceFirstChar { it.uppercase() }
+        calculateHandCost(receivedCard = receivedCard)
 
-        costOfHand += typeOfCard.cost
+        println("$name is taking a card...")
+        Thread.sleep(500) // симуляция взятия карты
 
-        cardsInHand += "${typeOfCard.symbol}${suitOfCard.suit} ($nameOfType of $nameOfSuit)".changeColor(
-            color = if (suitOfCard == Suit.HEARTS || suitOfCard == Suit.DIAMONDS) {
+        println("""it's "${hand.cardsInHand.last()}" its value is ${receivedCard.rankOfCard.cost.changeColor(color = Color.GREEN)}""")
+
+    }
+
+    private fun calculateHandCost(receivedCard: ReceivedCard) {
+        hand.costOfHand += receivedCard.rankOfCard.cost
+
+        hand.cardsInHand += "${receivedCard.rankOfCard.symbol}${receivedCard.suitOfCard.suit} (${receivedCard.nameOfRank} of ${receivedCard.nameOfSuit})".changeColor(
+            color = if (receivedCard.suitOfCard == Suit.HEARTS || receivedCard.suitOfCard == Suit.DIAMONDS) {
                 Color.RED
             } else {
                 Color.BLUE
             }
         )
 
-        println("$name is taking a card...")
-        Thread.sleep(500)
-
-        println("""it's "${cardsInHand.last()}" its value is ${typeOfCard.cost.changeColor(color = Color.GREEN)}""")
-        if (typeOfCard == Rank.ACE) {
-            numberOfAces++
+        if (receivedCard.rankOfCard == Rank.ACE) {
+            hand.numberOfAces++
         }
 
-        recalculateOfAces()
-    }
-
-    private fun recalculateOfAces() {
-        while (costOfHand > 21 && numberOfAces > 0) {
-            costOfHand -= 10
-            numberOfAces--
+        while (hand.costOfHand > 21 && hand.numberOfAces > 0) {
+            hand.costOfHand -= 10
+            hand.numberOfAces--
         }
     }
 
-    protected open fun artificialIntelligence(): String {
-        println("$name starts taking cards")
+    fun information(): String {
+        return """
+    |--$name:
+    |      --the value of $pronoun hand is ${hand.costOfHand.changeColor(color = Color.GREEN)},
+    |      --$pronoun cards are "${hand.cardsInHand.joinToString("| ")}"
+        """.trimMargin()
+    }
 
-
-        while (true) {
-            when (costOfHand) {
-                in 0..11 -> takeCard()
-
-                in 12..15 -> {
-                    when (Random.nextInt(1..2)) {
-                        1 -> takeCard()
-                        else -> return finish
-                    }
-                }
-
-                in 16..17 -> {
-                    when (Random.nextInt(1..10)) {
-                        1 -> takeCard()
-                        else -> return finish
-                    }
-                }
-
-                in 18..19 -> {
-                    when (Random.nextInt(1..100)) {
-                        in 1..4 -> takeCard()
-                        else -> return finish
-                    }
-                }
-
-                20 -> {
-                    when (Random.nextInt(1..100)) {
-                        in 1..2 -> takeCard()
-                        else -> return finish
-                    }
-                }
-
-                21 -> return "$finish. \nCareful, the dealer got twenty-one points"
-
-                else -> return "$finish.\nTake as many cards as you want, the dealer has too much"
-            }
+    protected fun defaultDistribution(): String {
+        repeat(2) {
+            takeCard()
         }
+        return information()
     }
 
     companion object {

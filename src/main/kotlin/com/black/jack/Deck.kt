@@ -1,5 +1,9 @@
 package com.black.jack
 
+import com.black.jack.players.PlayerBlackJack
+import com.black.jack.utils.Color
+import com.black.jack.utils.changeColor
+
 enum class Suit(val suit: String) {
     CLUBS("♣️"),
     DIAMONDS("♦\uFE0F"),
@@ -24,7 +28,7 @@ enum class Rank(val symbol: Char, val cost: Int) {
 }
 
 class Deck {
-    private val deck: MutableList<Pair<Rank, Suit>>  = mutableListOf()
+    private val deck: MutableList<Pair<Rank, Suit>> = mutableListOf()
 
     init {
         Suit.entries.forEach { suit ->
