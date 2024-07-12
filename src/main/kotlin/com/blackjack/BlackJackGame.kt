@@ -45,11 +45,8 @@ class Game(private val user: User, private val dealer: Dealer) {
         |${result(user.hand.costOfHand, dealer.hand.costOfHand)}
         |${user.information()}
         |
-        """.trimMargin()
+        |${dealer.information()}
+            """.trimMargin()
         )
-
-        if (dealer.hand.costOfHand > 0) {
-            println(dealer.information())
-        }
     }
 } // ЗДЕСЬ БУДЕТ КОД И ЛОГИКА, если Андрей скажет, что так нужно

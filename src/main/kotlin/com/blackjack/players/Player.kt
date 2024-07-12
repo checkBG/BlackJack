@@ -61,7 +61,7 @@ abstract class Player(initialName: String) {
         """.trimMargin()
     }
 
-    protected fun defaultDistribution() {
+    protected open fun defaultDistribution() {
         repeat(2) {
             takeCard()
         }

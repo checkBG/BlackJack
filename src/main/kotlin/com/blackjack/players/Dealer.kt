@@ -6,9 +6,18 @@ import kotlin.random.nextInt
 class Dealer(nameDealer: String = "The dealer") : Player(nameDealer) {
     override val pronoun: String = "his"
 
+    init {
+        defaultDistribution()
+        println(information())
+    }
+
+    override fun defaultDistribution() {
+        takeCard()
+    }
+
     fun artificialIntelligence() {
         println("$name starts taking cards")
-        defaultDistribution()
+//        defaultDistribution()
 
         while (true) {
 
