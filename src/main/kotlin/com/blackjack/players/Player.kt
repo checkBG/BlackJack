@@ -26,7 +26,11 @@ abstract class Player(initialName: String) {
 
         calculateHandCost(receivedCard = receivedCard)
 
-        println("$name is taking a card...")
+        if (this is Dealer) {
+            println("$name is taking a card...")
+        } else {
+            println("The dealer gives the card to the player $name...")
+        }
         Thread.sleep(500) // симуляция взятия карты
 
         println("""it's "${hand.cardsInHand.last()}" its value is ${receivedCard.rankOfCard.cost.changeColor(color = Color.GREEN)}""")
