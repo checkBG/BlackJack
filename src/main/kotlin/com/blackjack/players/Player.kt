@@ -8,7 +8,7 @@ import com.blackjack.model.ReceivedCard
 import com.blackjack.utils.Color
 import com.blackjack.utils.changeColor
 
-abstract class PlayerBlackjack(initialName: String) {
+abstract class Player(initialName: String) {
     val name: String = initialName
         get() = field.replaceFirstChar { it.uppercase() }.changeColor(color = Color.YELLOW)
 
@@ -30,7 +30,6 @@ abstract class PlayerBlackjack(initialName: String) {
         Thread.sleep(500) // симуляция взятия карты
 
         println("""it's "${hand.cardsInHand.last()}" its value is ${receivedCard.rankOfCard.cost.changeColor(color = Color.GREEN)}""")
-
     }
 
     private fun calculateHandCost(receivedCard: ReceivedCard) {
@@ -62,11 +61,10 @@ abstract class PlayerBlackjack(initialName: String) {
         """.trimMargin()
     }
 
-    protected fun defaultDistribution(): String {
+    protected fun defaultDistribution() {
         repeat(2) {
             takeCard()
         }
-        return information()
     }
 
     companion object {

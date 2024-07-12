@@ -13,5 +13,5 @@ data class ReceivedCard(
     val rankOfCard: Rank,
     val nameOfRank: String = rankOfCard.name.lowercase().replaceFirstChar { it.uppercase() },
     val suitOfCard: Suit,
-    val nameOfSuit: String = rankOfCard.name.lowercase().replaceFirstChar { it.uppercase() }
+    val nameOfSuit: String = suitOfCard.name.lowercase().replaceFirstChar { it.uppercase() }
 )
