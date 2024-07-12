@@ -1,4 +1,4 @@
-package com.black.jack
+package com.black.jack.players
 
 class Dealer(nameDealer: String = "The dealer") : PlayerBlackJack(nameDealer) {
     override val pronoun: String = "his"

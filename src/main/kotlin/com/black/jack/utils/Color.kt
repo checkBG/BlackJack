@@ -1,4 +1,4 @@
-package com.black.jack
+package com.black.jack.utils
 
 enum class Color(val color: String) {
     RED("\u001b[31m"),

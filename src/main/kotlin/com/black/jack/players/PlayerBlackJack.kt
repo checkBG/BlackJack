@@ -1,5 +1,8 @@
-package com.black.jack
+package com.black.jack.players
 
+import com.black.jack.*
+import com.black.jack.utils.Color
+import com.black.jack.utils.changeColor
 import kotlin.random.Random
 import kotlin.random.nextInt
 

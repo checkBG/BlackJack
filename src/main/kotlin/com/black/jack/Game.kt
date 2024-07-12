@@ -1,5 +1,9 @@
 package com.black.jack
 
+import com.black.jack.players.Dealer
+import com.black.jack.players.Player
+import com.black.jack.players.PlayerBlackJack
+
 fun main() {
     val playerName = PlayerBlackJack.enterName()
     val dealer = Dealer()
